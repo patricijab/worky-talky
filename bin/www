@@ -24,35 +24,65 @@ var io = require('socket.io')(server);
 
 var users = [];
 
+// ON USER CONNECT
 io.on('connection', (socket) => {
   console.log('user connected with ID ', socket.id);
-  if (!users.includes(socket.id)) {
-    users.push(socket.id);
+  // create user
+  var new_user = {
+    id: socket.id,
+    gender: Math.round(Math.random()),
   }
+  // add user to the list of users
+  var user_already_exists = false;
+  for (i = 0, len = users.length; i < len; i++) {
+    if (users[i].id == new_user.id) {
+      users[i] = new_user;
+      user_already_exists = true;
+      break;
+    }
+  }
+  if (!user_already_exists) {
+    users.push(new_user);
+  }
+  // send user their ID
+  io.to(socket.id).emit('sending user their ID', socket.id);
   console.log(users);
+
+  // ON USER DISCONNECT
   socket.on('disconnect', () => {
     console.log('user disconnected');
-    var index = users.indexOf(socket.id);
-    if (index > -1) {
-      users.splice(index, 1);
+    var user_gone_id = socket.id;
+    for (i = 0, len = users.length; i < len; i++) {
+      if (users[i].id == user_gone_id) {
+        users.splice(i, 1);
+        break;
+      }
     }
     console.log(users);
-
   });
-  // function that gets called, when we receive data from a user and want to emit it to the other user
+
+  // function that gets called, when we receive location data from a user and want to emit it to other users
   socket.on('send coordinates', (msg) => {
     // the user that sent the data
     var socket_id = socket.id;
-    // get the other user
+    // sending location data to everyone but the sender
     for (i = 0, len = users.length; i < len; i++) {
-      if (users[i] !== socket_id) {
+      if (users[i].id !== socket_id) {
         // send to just one user
-        io.to(users[i]).emit('chat message', msg);
-        console.log('coordinates ' + msg + ' sent to: ' + users[i]);
+        io.to(users[i].id).emit('chat message', msg);
+        console.log('coordinates ' + msg + ' sent to: ' + users[i].id);
       }
     }
     // socket.emit('chat message', msg);
   });
+
+  // an interaction happened, now we send videochat link to all involved
+  socket.on('interaction happened', (other_user_id) => {
+    var generated_chat_link = "https://zoom.us/j/94355006578?pwd=WVovYlhXWFRic0tmZzBiQkM4dmlndz09#success";
+    io.to(socket.id).emit('generated videochat', generated_chat_link);
+    io.to(other_user_id).emit('generated videochat', generated_chat_link);
+  });
+
 });
 
 /**
