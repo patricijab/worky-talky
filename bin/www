@@ -39,9 +39,19 @@ io.on('connection', (socket) => {
     console.log(users);
 
   });
+  // function that gets called, when we receive data from a user and want to emit it to the other user
   socket.on('send coordinates', (msg) => {
-    // console.log('message: ' + msg);
-    socket.emit('chat message', msg);
+    // the user that sent the data
+    var socket_id = socket.id;
+    // get the other user
+    for (i = 0, len = users.length; i < len; i++) {
+      if (users[i] !== socket_id) {
+        // send to just one user
+        io.to(users[i]).emit('chat message', msg);
+        console.log('coordinates ' + msg + ' sent to: ' + users[i]);
+      }
+    }
+    // socket.emit('chat message', msg);
   });
 });
 
