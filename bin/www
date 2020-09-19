@@ -22,14 +22,26 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
+var users = [];
+
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log('user connected with ID ', socket.id);
+  if (!users.includes(socket.id)) {
+    users.push(socket.id);
+  }
+  console.log(users);
   socket.on('disconnect', () => {
     console.log('user disconnected');
+    var index = users.indexOf(socket.id);
+    if (index > -1) {
+      users.splice(index, 1);
+    }
+    console.log(users);
+
   });
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
+  socket.on('send coordinates', (msg) => {
+    // console.log('message: ' + msg);
+    socket.emit('chat message', msg);
   });
 });
 
