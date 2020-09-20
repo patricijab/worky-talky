@@ -27,10 +27,11 @@ var users = [];
 // ON USER CONNECT
 io.on('connection', (socket) => {
   console.log('user connected with ID ', socket.id);
+  var gender = Math.round(Math.random()) ? "M" : "F";
   // create user
   var new_user = {
     id: socket.id,
-    gender: Math.round(Math.random()),
+    gender: gender,
   }
   // add user to the list of users
   var user_already_exists = false;
@@ -43,10 +44,12 @@ io.on('connection', (socket) => {
   }
   if (!user_already_exists) {
     users.push(new_user);
+
+    // send user their ID
+    io.to(socket.id).emit('sending user their ID', socket.id);
+    console.log(users);
   }
-  // send user their ID
-  io.to(socket.id).emit('sending user their ID', socket.id);
-  console.log(users);
+
 
   // ON USER DISCONNECT
   socket.on('disconnect', () => {
@@ -59,6 +62,7 @@ io.on('connection', (socket) => {
       }
     }
     console.log(users);
+    // TO DO: send disconnect notification to other users
   });
 
   // function that gets called, when we receive location data from a user and want to emit it to other users
@@ -69,8 +73,8 @@ io.on('connection', (socket) => {
     for (i = 0, len = users.length; i < len; i++) {
       if (users[i].id !== socket_id) {
         // send to just one user
-        io.to(users[i].id).emit('chat message', msg);
-        console.log('coordinates ' + msg + ' sent to: ' + users[i].id);
+        io.to(users[i].id).emit('chat message', [msg[0], msg[1], socket_id]);
+        // console.log('coordinates ' + msg + ' sent to: ' + users[i].id);
       }
     }
     // socket.emit('chat message', msg);

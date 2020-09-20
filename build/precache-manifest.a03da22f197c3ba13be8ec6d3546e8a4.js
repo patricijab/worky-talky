@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "de82ccb15a42014ff7c7585d1bb706f3",
+    "revision": "3216ca9d2762a79b206c3335227e2119",
     "url": "./index.html"
   },
   {
-    "revision": "6af46aa13aa60ff45818",
-    "url": "./static/css/main.d78dad5d.chunk.css"
+    "revision": "35f692d37039fdf75b3d",
+    "url": "./static/css/main.aef7a244.chunk.css"
   },
   {
-    "revision": "5cb40939428a33395833",
-    "url": "./static/js/2.19028a46.chunk.js"
+    "revision": "3677840df15ed96ec4ae",
+    "url": "./static/js/2.5282d10a.chunk.js"
   },
   {
-    "revision": "f65b45f562155f0fa2653b346e3552a6",
-    "url": "./static/js/2.19028a46.chunk.js.LICENSE.txt"
+    "revision": "b67bc97fd0dd67004287af4028afc1b1",
+    "url": "./static/js/2.5282d10a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6af46aa13aa60ff45818",
-    "url": "./static/js/main.9622eed9.chunk.js"
+    "revision": "35f692d37039fdf75b3d",
+    "url": "./static/js/main.59b9c06c.chunk.js"
   },
   {
     "revision": "fabd55e9208bf8f5534f",
@@ -64,8 +64,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./static/media/Kitchen.3402765b.svg"
   },
   {
+    "revision": "33a9569c58a1cd1f4b5fa720bfa5b1fb",
+    "url": "./static/media/Medium.33a9569c.svg"
+  },
+  {
     "revision": "43485d4a3cd326a2dc26b46a0eb078f4",
     "url": "./static/media/Meeting.43485d4a.svg"
+  },
+  {
+    "revision": "2dd2c03d162f81387626302d04e3be23",
+    "url": "./static/media/Online.2dd2c03d.svg"
   },
   {
     "revision": "d99f95d9726bb6f5008041afbf4a8c0b",
@@ -92,7 +100,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./static/media/Tv.5ecee15c.svg"
   },
   {
+    "revision": "edb70b04ca7b6e21ef8434e447ad1032",
+    "url": "./static/media/Unavailable.edb70b04.svg"
+  },
+  {
     "revision": "a9961f03de0654c0848f50fb288ea946",
     "url": "./static/media/Workspace.a9961f03.svg"
+  },
+  {
+    "revision": "7e706370ca3ffa7413748fc992c47796",
+    "url": "./static/media/briefcase.7e706370.svg"
+  },
+  {
+    "revision": "7dc6e5d53d4ab8beede455bf624080c5",
+    "url": "./static/media/star.7dc6e5d5.svg"
   }
 ]);
